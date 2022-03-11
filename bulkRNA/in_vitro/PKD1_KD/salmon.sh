@@ -1,7 +1,7 @@
 #!/bin/bash
 
-main_dir=/home/pengguoyu/Workshop/MultiOmics/GANAB2020/20220119UMUC3_PKD1_GANAB
-ref_dir=/home/pengguoyu/Database/GRCh38/GENCODE
+main_dir=..
+ref_dir=${main_dir}/GRCh38
 clean_dir=${main_dir}/clean_data
 salmon_dir=${main_dir}/salmon
 index_path=${ref_dir}/transcripts_index_salmon

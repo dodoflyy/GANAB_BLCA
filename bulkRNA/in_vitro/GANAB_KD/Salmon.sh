@@ -1,9 +1,9 @@
 #!/bin/bash
 
-CleanDir=~/Workshop/MultiOmics/GANAB2020/20210813UMUC3_KD/RNAseq/CleanData
-SalmonDir=~/Workshop/MultiOmics/GANAB2020/20210813UMUC3_KD/RNAseq/Salmon
-IndexPath=~/Database/GRCh38/GENCODE/transcripts_index_salmon
-GRCh38GTF=~/Database/GRCh38/GENCODE/gencode.v35.annotation.gtf
+CleanDir=../CleanData
+SalmonDir=../Salmon
+IndexPath=../GRCh38/transcripts_index_salmon
+GRCh38GTF=../GRCh38/gencode.v35.annotation.gtf
 
 Samples=("CTR_1" "CTR_2" "CTR_3" "KD_1" "KD_2" "KD_3")
 for Sample in ${Samples[@]}

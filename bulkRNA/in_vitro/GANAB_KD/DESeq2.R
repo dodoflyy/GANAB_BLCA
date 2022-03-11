@@ -2,13 +2,13 @@ library(tidyverse)
 library(tximport)
 library(DESeq2)
 
-mainDir <- file.path("/home/pengguoyu/Workshop/MultiOmics/GANAB2020/20210813UMUC3_KD/RNAseq")
+mainDir <- file.path("..")
 exprDir <- file.path(mainDir, "Expression")
 degDir <- file.path(mainDir, "DEGs")
 SalmonDir <- file.path(mainDir, "Salmon")
 sampleGPath <- file.path(mainDir, "SampleGroup.csv")
-biomartPath <- file.path("/home/pengguoyu/Database/GRCh38/ENSEMBL/Release-101/Biomart/GRCh38.p13_Release101_20201109.csv")
-txiPath <- file.path("/home/pengguoyu/Database/GRCh38/GENCODE/gencode.v35.annotation.TxToGene.csv")
+biomartPath <- file.path("../GRCh38/GRCh38.p13_Release101_20201109.csv")
+txiPath <- file.path("../GRCh38/gencode.v35.annotation.TxToGene.csv")
 
 geneMap <- read_csv(biomartPath) %>% 
   dplyr::select(`Gene stable ID`, `NCBI gene (formerly Entrezgene) ID`, `HGNC symbol`) %>% 

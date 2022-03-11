@@ -1,7 +1,7 @@
 library(tidyverse)
 
 
-exprs_dir <- file.path("/home/pengguoyu/Workshop/MultiOmics/GANAB2020/20220119UMUC3_PKD1_GANAB/expression")
+exprs_dir <- file.path("../expression")
 exprs_path <- file.path(exprs_dir, "RLog.csv")
 
 exprs_data <- read_csv(exprs_path) %>% 

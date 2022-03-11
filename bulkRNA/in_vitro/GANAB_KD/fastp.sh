@@ -1,7 +1,7 @@
 #!/bin/bash
 
-RawDir=~/Workshop/MultiOmics/GANAB2020/20210813UMUC3_KD/RNAseq/Rawdata
-CleanDir=~/Workshop/MultiOmics/GANAB2020/20210813UMUC3_KD/RNAseq/CleanData
+RawDir=../Rawdata
+CleanDir=../CleanData
 
 FileNames=("UMUC3-ctr1_FKDL210219094-1a" "UMUC3-ctr2_FKDL210219095-1a" "UMUC3-ctr3_FKDL210219096-1a" "UMUC3-ko1_FKDL210219097-1a" "UMUC3-ko2_FKDL210219098-1a" "UMUC3-ko3_FKDL210219099-1a")
 SampleNames=("CTR_1" "CTR_2" "CTR_3" "KD_1" "KD_2" "KD_3")

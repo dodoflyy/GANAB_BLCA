@@ -2,7 +2,7 @@ library(tidyverse)
 library(org.Hs.eg.db)
 library(clusterProfiler)
 
-mainDir <- file.path("/home/pengguoyu/Workshop/MultiOmics/GANAB2020/20200916/RNAseq")
+mainDir <- file.path("..")
 degDir <- file.path(mainDir, "DEGs")
 enrichDir <- file.path(mainDir, "Enrichment")
 degPath <- file.path(degDir, "AllGenes.csv")

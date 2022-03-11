@@ -3,17 +3,17 @@ library(GenomicFeatures, quietly = TRUE)
 library(tximport, quietly = TRUE)
 library(DESeq2, quietly = TRUE)
 
-SalmonDir="/datapool/pengguoyu/ATACseq/20200916ATAC/Salmon"
+SalmonDir="../Salmon"
 
-txd <- loadDb("/share/database/openData/GRCh38_hg38/Gencode_V33_TxDb.sqlite")
+txd <- loadDb("../GRCh38/Gencode_V33_TxDb.sqlite")
 txToGene <- AnnotationDbi::select(txd, keys=keys(txd, "TXNAME"), keytype="TXNAME", columns=c("TXNAME", "GENEID"))
-write_csv(txToGene, "/share/database/openData/GRCh38_hg38/Gencode_V33_txTogene.csv")
-sampleGroup <- read.csv("/datapool/pengguoyu/ATACseq/20200916ATAC/SampleGroup.csv", header = TRUE, row.names = 1)
+write_csv(txToGene, "../GRCh38/Gencode_V33_txTogene.csv")
+sampleGroup <- read.csv("../SampleGroup.csv", header = TRUE, row.names = 1)
 sampleGroup$Group <- factor(sampleGroup$Group, levels = c("WT", "KO"))
 print(sampleGroup)
 
 # mapping gene id
-geneMap <- read_csv("/datapool/pengguoyu/Database/BioMart/GRCh38.p13_V100_20200629.csv") %>% 
+geneMap <- read_csv("../GRCh38/GRCh38.p13_V100_20200629.csv") %>% 
   dplyr::select(`Gene stable ID`, `HGNC symbol`, `NCBI gene (formerly Entrezgene) ID`) %>% 
   dplyr::rename(ensembl_gene_id=`Gene stable ID`, hgnc_symbol=`HGNC symbol`, entrezgene_id=`NCBI gene (formerly Entrezgene) ID`) %>% 
   dplyr::filter(!(is.na(entrezgene_id) & is.na(hgnc_symbol))) %>% 
@@ -31,10 +31,10 @@ txi$abundance %>%
   tidyr::separate(col = gene_id, into = c("ensembl_gene_id", "ensembl_gene_version"), sep = "\\.", remove = TRUE, extra = "drop", fill = "right") %>% 
   dplyr::select(- ensembl_gene_version) %>% dplyr::left_join(geneMap, by="ensembl_gene_id") %>% 
   dplyr::select(ensembl_gene_id, entrezgene_id, hgnc_symbol, everything()) %>% 
-  write_csv("/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/Expression/TPM.csv")
+  write_csv("../KO_vs_WT/Expression/TPM.csv")
 
 dds <- DESeqDataSetFromTximport(txi, colData = sampleGroup, design = ~ Group)
-saveRDS(dds, file = "/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/DEG/DESeq2Dds.rds")
+saveRDS(dds, file = "../KO_vs_WT/DEG/DESeq2Dds.rds")
 
 # filter genes
 keep <- rowSums(counts(dds) >= 5) >= 3
@@ -62,10 +62,10 @@ rlogNT1 <- assay(rlogN) %>% as_tibble(rownames="gene_id") %>%
   dplyr::select(- ensembl_gene_version) %>% dplyr::left_join(geneMap, by="ensembl_gene_id") %>% 
   dplyr::select(ensembl_gene_id, entrezgene_id, hgnc_symbol, everything())
 
-write_csv(readCounts, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/Expression/ReadCounts.csv")
-write_csv(norCounts, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/Expression/NormalizedCounts.csv")
-write_csv(rlogBT, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/Expression/RlogBlind.csv")
-write_csv(rlogNT1, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/Expression/RlogNotBlind.csv")
+write_csv(readCounts, path="../KO_vs_WT/Expression/ReadCounts.csv")
+write_csv(norCounts, path="../KO_vs_WT/Expression/NormalizedCounts.csv")
+write_csv(rlogBT, path="../KO_vs_WT/Expression/RlogBlind.csv")
+write_csv(rlogNT1, path="../KO_vs_WT/Expression/RlogNotBlind.csv")
 
 res <- lfcShrink(dds, coef = "Group_KO_vs_WT", type = "apeglm")
 result <- as_tibble(res, rownames="gene_id") %>% 
@@ -75,6 +75,6 @@ result <- as_tibble(res, rownames="gene_id") %>%
 resFilter <- dplyr::filter(result, abs(log2FoldChange) >= 1 & padj < 0.05)
 sigFilter <- dplyr::filter(result, padj < 0.05)
 
-write_csv(result, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/DEG/AllGenes.csv")
-write_csv(resFilter, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/DEG/FilteredDEGs.csv")
-write_csv(sigFilter, path="/datapool/pengguoyu/ATACseq/20200916ATAC/KO_vs_WT/DEG/DEGs.csv")
+write_csv(result, path="../KO_vs_WT/DEG/AllGenes.csv")
+write_csv(resFilter, path="../KO_vs_WT/DEG/FilteredDEGs.csv")
+write_csv(sigFilter, path="../KO_vs_WT/DEG/DEGs.csv")

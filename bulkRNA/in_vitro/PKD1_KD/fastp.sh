@@ -1,6 +1,6 @@
 #!/bin/bash
 
-main_dir=/home/pengguoyu/Workshop/MultiOmics/GANAB2020/20220119UMUC3_PKD1_GANAB
+main_dir=..
 raw_dir=${main_dir}/raw_data
 clean_dir=${main_dir}/clean_data
 

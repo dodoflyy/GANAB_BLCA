@@ -3,7 +3,7 @@ library(org.Hs.eg.db)
 library(clusterProfiler)
 library(enrichplot)
 
-mainDir <- file.path("/home/pengguoyu/Workshop/MultiOmics/GANAB2020/20210813UMUC3_KD/RNAseq")
+mainDir <- file.path("..")
 degDir <- file.path(mainDir, "DEGs")
 enrichDir <- file.path(mainDir, "Enrichment")
 degPath <- file.path(degDir, "DEGsAll.csv")
